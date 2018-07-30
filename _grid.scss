@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+//-----------------------------------------------------
+// grid system
+//-----------------------------------------------------
+
+$gridRowClearfix:   false !default; // 如果采用float，子元素清除浮动使用clearfix或overflow
+$gridClass:         false !default;
+$gridPadded:        false !default; // 子级是否有间距
+
+// row
+@mixin row() {
+	width: 100%;
+	@if $gridRowClearfix {
+		@extend %clearfix;
+	} @else {
+		overflow: hidden;
+	}
+  &.has-pad {
+    padding: 5px;
+    
+    [class*=col-] {
+      padding: 5px;
+    }
+  }
+}
+
+// col
+@mixin col($num, $total: 1) {
+	position: relative;
+	float: left;
+	// 如果$total为默认的1，则表示等分的$num分之一
+	// 否则计算$num/$total
+	@if $total == 1 {
+		width: 100% / $num; 
+	} @else {
+		width: percentage($num / $total);
+	}
+}
+
+// 是否开启class
+@if $gridClass {
+	.row {
+		@include row;
+	}
+	.col-xs-12 {
+		@include col(1);
+	}
+	.col-xs-11 {
+		@include col(11, 12);
+	}
+  .col-xs-10 {
+		@include col(10, 12);
+	}
+  .col-xs-9 {
+		@include col(9, 12);
+	}
+  .col-xs-8 {
+		@include col(8, 12);
+	}
+  .col-xs-7 {
+		@include col(7, 12);
+	}
+  .col-xs-6 {
+		@include col(6, 12);
+	}
+  .col-xs-5 {
+		@include col(5, 12);
+	}
+  .col-xs-4 {
+		@include col(4, 12);
+	}
+  .col-xs-3 {
+		@include col(3, 12);
+	}
+  .col-xs-2 {
+		@include col(2, 12);
+	}
+  .col-xs-1 {
+		@include col(1, 12);
+	}
+  .col-1-5 {
+    @include col(5, 1);
+  }
+}
